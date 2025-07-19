@@ -1,7 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react';
 
 const LogoutButton = () => {
-  const { logout } = useAuth0();
+  const { logout, error } = useAuth0();
+
+  if (error) {
+    return <div>Logout Error: {error.message}</div>;
+  }
 
   return (
     <button onClick={() => logout({ 

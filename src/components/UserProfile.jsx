@@ -1,7 +1,15 @@
 import { useAuth0 } from '@auth0/auth0-react';
 
 const UserProfile = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading, error } = useAuth0();
+
+  if (error) {
+    return <div>Profile Error: {error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading profile...</div>;
+  }
 
   if (!isAuthenticated || !user) {
     return null;

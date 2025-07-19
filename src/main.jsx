@@ -6,6 +6,12 @@ import { Auth0Provider } from '@auth0/auth0-react';
 const domain = import.meta.env.VITE_REACT_APP_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_REACT_APP_AUTH0_CLIENT_ID;
 
+if (!domain || !clientId) {
+  throw new Error(
+    'Missing Auth0 configuration. Please make sure VITE_REACT_APP_AUTH0_DOMAIN and VITE_REACT_APP_AUTH0_CLIENT_ID are set in your environment variables.'
+  );
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Auth0Provider
@@ -14,6 +20,7 @@ createRoot(document.getElementById('root')).render(
       authorizationParams={{
         redirect_uri: window.location.origin
       }}
+      cacheLocation="localstorage"
     >
       <App />
     </Auth0Provider>
